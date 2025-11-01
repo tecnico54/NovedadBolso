@@ -1,0 +1,40 @@
+# ======================================
+# DEPENDENCIAS Y ARCHIVOS DEL SISTEMA
+# ======================================
+node_modules/
+.DS_Store
+Thumbs.db
+
+# ======================================
+# ARCHIVOS DE CONFIGURACIÓN PRIVADOS
+# ======================================
+
+# Variables de entorno
+.env
+
+# Claves privadas de Firebase
+JSON/serviceAccountKey.json
+
+# ======================================
+# LOGS Y ARCHIVOS TEMPORALES
+# ======================================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# ======================================
+# BACKUPS, ARCHIVOS DE ENTORNO O CACHE
+# ======================================
+*.bak
+*.tmp
+.cache/
+dist/
+build/
+
+# ======================================
+# ARCHIVOS DE EDITOR
+# ======================================
+.vscode/
+.idea/
