@@ -1,6 +1,6 @@
 // --- Importaciones ---
 const admin = require("firebase-admin");
-const serviceAccount = require("../JSON/serviceAccountKey.json");
+const serviceAccount = require("/etc/secrets/serviceAccountKey.json");
 
 // --- Inicialización de Firebase ---
 admin.initializeApp({
