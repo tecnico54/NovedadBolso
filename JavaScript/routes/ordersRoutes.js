@@ -1,11 +1,39 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const ordersRepository = require('../repositories/ordersRepository');
+const ordersRepository = require("../repositories/ordersRepository");
+const shopifyService = require("../services/shopifyService");
 
-// --- ENDPOINTS CRUD (Órdenes) ---
+/**
+ * @swagger
+ * tags:
+ *   name: Órdenes
+ *   description: Endpoints para gestionar órdenes desde Shopify y Firebase
+ */
 
-// Obtener todas las órdenes
-router.get('/', async (req, res) => {
+/**
+ * @swagger
+ * /api/ordenes/shopify:
+ *   get:
+ *     summary: Obtiene todas las órdenes desde Shopify
+ *     tags: [Órdenes]
+ */
+router.get("/shopify", async (req, res) => {
+  try {
+    const ordenes = await shopifyService.obtenerOrdenes();
+    res.json(ordenes);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * @swagger
+ * /api/ordenes:
+ *   get:
+ *     summary: Obtiene todas las órdenes desde Firebase
+ *     tags: [Órdenes]
+ */
+router.get("/", async (req, res) => {
   try {
     const ordenes = await ordersRepository.getAll();
     res.json(ordenes);
@@ -14,42 +42,17 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Obtener una orden por ID
-router.get('/:id', async (req, res) => {
-  try {
-    const orden = await ordersRepository.getById(req.params.id);
-    if (!orden) return res.status(404).json({ error: 'Orden no encontrada' });
-    res.json(orden);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Crear una nueva orden
-router.post('/', async (req, res) => {
+/**
+ * @swagger
+ * /api/ordenes:
+ *   post:
+ *     summary: Crea una nueva orden en Firebase
+ *     tags: [Órdenes]
+ */
+router.post("/", async (req, res) => {
   try {
     const nueva = await ordersRepository.create(req.body);
     res.status(201).json(nueva);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Actualizar estado de una orden
-router.put('/:id', async (req, res) => {
-  try {
-    const actualizado = await ordersRepository.updateStatus(req.params.id, req.body.estado);
-    res.json(actualizado);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Eliminar una orden
-router.delete('/:id', async (req, res) => {
-  try {
-    const eliminado = await ordersRepository.remove(req.params.id);
-    res.json(eliminado);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
