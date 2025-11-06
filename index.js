@@ -10,9 +10,8 @@ app.use(express.json());
 
 // --- Ruta raíz ---
 app.get('/', (req, res) => {
-  res.send('👜 CHICK 44 funcionando');
+    res.send('👜 CHICK 44 funcionando');
 });
-
 
 // Rutas
 app.use("/api/productos", require("./JavaScript/routes/productsRoutes"));
