@@ -1,41 +1,28 @@
 // index.js
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const swaggerDocs = require("./swagger");
 
-const productsRoutes = require("./JavaScript/routes/productsRoutes");
-const ordersRoutes = require("./JavaScript/routes/ordersRoutes");
-const setupSwagger = require("./swagger");
+dotenv.config();
 
 const app = express();
-
-// 🔧 Middlewares
 app.use(cors());
 app.use(express.json());
 
-// 📘 Swagger (debe ir ANTES de las rutas para que Render lo registre)
-setupSwagger(app);
+// Importar rutas
+const productsRoutes = require("./JavaScript/routes/productsRoutes");
+const ordersRoutes = require("./JavaScript/routes/ordersRoutes");
 
-// 📦 Rutas principales
 app.use("/api/productos", productsRoutes);
 app.use("/api/ordenes", ordersRoutes);
 
-// 🌐 Ruta base
-app.get("/", (req, res) => {
-res.send("🚀 API CHIC 44 está corriendo correctamente.");
-});
+// Swagger
+swaggerDocs(app);
 
-// 🧠 Manejador de errores generales
-app.use((err, req, res, next) => {
-console.error("❌ Error general:", err);
-res.status(500).json({ error: "Error interno del servidor" });
-});
-
-// 🟢 Inicializar servidor
+// Puerto dinámico para Render
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-console.log(`✅ Servidor ejecutándose en puerto ${PORT}`);
-console.log(`📘 Documentación Swagger: http://localhost:${PORT}/api-docs`);
+  console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
+  console.log(`📘 Swagger disponible en: http://localhost:${PORT}/api-docs`);
 });
-
-module.exports = app;
