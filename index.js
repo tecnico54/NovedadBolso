@@ -22,7 +22,7 @@ app.use("/api/ordenes", ordersRoutes);
 
 // 🔹 Ruta de prueba base
 app.get("/", (req, res) => {
-  res.send("🚀 API de Novedad del Bolso funcionando correctamente.");
+  res.send("🚀 API CHIC 44 funcionando correctamente.");
 });
 
 // 🔹 Configurar puerto dinámico para Render
