@@ -5,7 +5,7 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "API - Novedad del Bolso",
+      title: "API - CHIC 44",
       version: "1.0.0",
       description:
         "Documentación oficial de la API de Novedad del Bolso. Conexión a Shopify y Firebase.",
